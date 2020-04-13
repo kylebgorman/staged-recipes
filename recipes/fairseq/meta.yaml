@@ -1,0 +1,51 @@
+{% set name = "fairseq" %}
+{% set version = "0.9.0" %}
+{% set tag = "v0.9.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/pytorch/fairseq.git
+  git_tag: {{ tag }}
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+  host:
+    - cffi
+    - cython
+    - numpy
+    - pip
+    - python
+    - pytorch
+    - regex
+    - tqdm
+  run:
+    - numpy
+    - python
+    - pytorch
+    - regex
+    - tqdm
+
+test:
+  imports:
+    - fairseq
+
+about:
+  home: https://github.com/pytorch/fairseq/
+  license: MIT
+  license_file: LICENSE
+  summary: Sequence modeling toolkit
+  description: |
+    Fairseq(-py) is a sequence modeling toolkit that allows researchers and developers to train custom models for translation, summarization, language modeling and other text generation tasks.
+  doc_url: https://fairseq.readthedocs.io/en/latest/
+
+extra:
+  recipe-maintainers:
+    - kylebgorman
